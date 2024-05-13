@@ -1,0 +1,27 @@
+---
+import Button from "./button.astro";
+
+const commands = {
+  clear: "Clear chart",
+  rectangular: "Add Rectangular distribution",
+  ushaped: "Add U-shaped distribution",
+};
+---
+
+<div class="controls">
+  {
+    Object.entries(commands).map(([command, description]) => (
+      <Button>{description}</Button>
+    ))
+  }
+</div>
+
+<style>
+  .controls {
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+</style>
