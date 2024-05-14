@@ -28,8 +28,7 @@ impl Data {
     }
 
     fn clear(&mut self) {
-        let n = self.data.len();
-        self.data = iter::repeat(0).take(n).collect();
+        self.data.fill(0);
         self.min = 0;
         self.max = 0;
     }
@@ -37,9 +36,8 @@ impl Data {
     fn add_rectangular(&mut self) {
         const MAX: u32 = 10;
         let mut rng = rand::thread_rng();
-        let n = self.data.len();
-        for i in 0..n {
-            self.data[i] += rng.gen_range(1..=MAX);
+        for item in self.data.iter_mut() {
+            *item += rng.gen_range(1..=MAX);
         }
         self.min += 1;
         self.max += MAX;
@@ -48,11 +46,10 @@ impl Data {
     fn add_ushaped(&mut self) {
         const MAX: u32 = 10;
         let mut rng = rand::thread_rng();
-        let n = self.data.len();
-        for i in 0..n {
+        for item in self.data.iter_mut() {
             let x: f64 = rng.gen::<f64>();
             let y: f64 = (-2.269 * x.powf(3.0) + 3.404 * x.powf(2.0) - 0.1456 * x + 0.006) * 10.0;
-            self.data[i] += y.ceil() as u32;
+            *item += y.ceil() as u32;
         }
         self.min += 1;
         self.max += MAX;
@@ -94,8 +91,6 @@ fn main() {
         .expect("error while running tauri application");
 }
 
-// https://blog.moonguard.dev/manage-state-with-tauri
-
 #[cfg(test)]
 mod tests {
     use super::Data;
@@ -125,5 +120,16 @@ mod tests {
         assert_eq!(data.data.len(), 1_000_000);
         assert_eq!(data.data.iter().min(), Some(&1));
         assert_eq!(data.data.iter().max(), Some(&10));
+    }
+
+    #[test]
+    fn clear() {
+        let mut data = setup();
+        data.add_rectangular();
+        data.clear();
+        assert_eq!(data.data.len(), 1_000_000);
+        assert_eq!(data.data.iter().min(), Some(&0));
+        assert_eq!(data.data.iter().max(), Some(&0));
+        assert!(data.data.iter().all(|&x| x == 0));
     }
 }
