@@ -1,6 +1,9 @@
 {
   "name": "dice-mc",
-  "author": {"name": "CF Matthee", "email": "cfmatthee@gmail.com"},
+  "author": {
+    "name": "CF Matthee",
+    "email": "cfmatthee@gmail.com"
+  },
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -11,8 +14,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.8.3",
     "@astrojs/check": "^0.6.0",
+    "@tauri-apps/api": "^1.5.5",
+    "astro": "^4.8.3",
     "typescript": "^5.4.5"
   }
 }

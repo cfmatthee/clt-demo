@@ -13,13 +13,34 @@ const commands = {
     Object.entries(commands).map(([command, description], idx) => {
       const color = idx == 0 ? "grey" : "green";
       return (
-        <Button variant="solid" color={color}>
-          {description}
-        </Button>
+        <command-button data-command={command}>
+          <Button variant="solid" color={color}>
+            {description}
+          </Button>
+        </command-button>
       );
     })
   }
 </div>
+
+<script>
+  import { invoke } from "@tauri-apps/api";
+  class CommandButton extends HTMLElement {
+    constructor() {
+      super();
+
+      const button = this.querySelector("button");
+      button?.addEventListener("click", () => {
+        const command = this.dataset.command;
+        console.log("invoking command", command);
+        invoke("run_command", { command: command || "" }).then((response) => {
+          console.log("Promise returned", response);
+        });
+      });
+    }
+  }
+  customElements.define("command-button", CommandButton);
+</script>
 
 <style>
   .controls {
