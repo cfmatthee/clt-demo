@@ -555,6 +555,7 @@ dependencies = [
 name = "dice-mc"
 version = "3.0.0"
 dependencies = [
+ "rand 0.8.5",
  "serde",
  "serde_json",
  "tauri",

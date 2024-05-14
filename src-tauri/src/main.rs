@@ -1,14 +1,85 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use rand::Rng;
+use std::{iter, sync::Mutex};
+use tauri::State;
+
+#[derive(Debug)]
+struct Data {
+    data: Vec<u32>,
+    min: u32,
+    max: u32,
+}
+
+impl Default for Data {
+    fn default() -> Self {
+        Self {
+            data: iter::repeat(0).take(100).collect(),
+            min: 0,
+            max: 0,
+        }
+    }
+}
+
+impl Data {
+    fn new() -> Self {
+        Data::default()
+    }
+
+    fn clear(&mut self) {
+        let n = self.data.len();
+        self.data = iter::repeat(0).take(n).collect();
+        self.min = 0;
+        self.max = 0;
+    }
+
+    fn add_rectangular(&mut self) {
+        const MAX: u32 = 10;
+        let mut rng = rand::thread_rng();
+        let n = self.data.len();
+        for i in 0..n {
+            self.data[i] += rng.gen_range(1..=MAX);
+        }
+        self.min += 1;
+        self.max += MAX;
+    }
+
+    fn add_ushaped(&mut self) {
+        const MAX: u32 = 10;
+        let mut rng = rand::thread_rng();
+        let n = self.data.len();
+        for i in 0..n {
+            let x: f64 = rng.gen::<f64>();
+            let y: f64 = (-2.269 * x.powf(3.0) + 3.404 * x.powf(2.0) - 0.1456 * x + 0.006) * 10.0;
+            self.data[i] += y.ceil() as u32;
+        }
+        self.min += 1;
+        self.max += MAX;
+    }
+}
+
+struct AppState(Mutex<Data>);
+
 #[tauri::command]
-fn run_command(command: &str) {
-    println!("Received command {}", command);
+fn run_command(command: &str, state: State<AppState>) {
+    let mut data = state.0.lock().unwrap();
+    match command {
+        "clear" => data.clear(),
+        "rectangular" => data.add_rectangular(),
+        "ushaped" => data.add_ushaped(),
+        _ => (),
+    };
+
+    println!("{:?}", data);
 }
 
 fn main() {
     tauri::Builder::default()
+        .manage(AppState(Mutex::new(Data::new())))
         .invoke_handler(tauri::generate_handler![run_command])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+// https://blog.moonguard.dev/manage-state-with-tauri
