@@ -3,16 +3,21 @@ import Button from "./button.astro";
 
 const commands = {
   clear: "Clear chart",
-  rectangular: "Add Rectangular distribution",
-  ushaped: "Add U-shaped distribution",
+  rectangular: "Rectangular",
+  ushaped: "U-shaped",
 };
 ---
 
 <div class="controls">
   {
-    Object.entries(commands).map(([command, description]) => (
-      <Button>{description}</Button>
-    ))
+    Object.entries(commands).map(([command, description], idx) => {
+      const color = idx == 0 ? "grey" : "green";
+      return (
+        <Button variant="solid" color={color}>
+          {description}
+        </Button>
+      );
+    })
   }
 </div>
 
