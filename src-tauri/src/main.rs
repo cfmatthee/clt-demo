@@ -15,7 +15,7 @@ struct Data {
 impl Default for Data {
     fn default() -> Self {
         Self {
-            data: iter::repeat(0).take(100).collect(),
+            data: iter::repeat(0).take(1_000_000).collect(),
             min: 0,
             max: 0,
         }
@@ -57,6 +57,18 @@ impl Data {
         self.min += 1;
         self.max += MAX;
     }
+
+    fn create_histogram(&self) {
+        let capacity: usize = (self.max - self.min + 1) as usize;
+        if capacity == 1 {
+            return ();
+        }
+        let mut histogram: Vec<u32> = iter::repeat(0).take(capacity).collect();
+        for val in self.data.iter() {
+            histogram[(val - self.min) as usize] += 1;
+        }
+        println!("{:?}", histogram);
+    }
 }
 
 struct AppState(Mutex<Data>);
@@ -71,7 +83,7 @@ fn run_command(command: &str, state: State<AppState>) {
         _ => (),
     };
 
-    println!("{:?}", data);
+    data.create_histogram();
 }
 
 fn main() {
