@@ -83,3 +83,35 @@ fn main() {
 }
 
 // https://blog.moonguard.dev/manage-state-with-tauri
+
+#[cfg(test)]
+mod tests {
+    use super::Data;
+    use std::iter;
+
+    fn setup() -> Data {
+        Data {
+            data: iter::repeat(0).take(1_000_000).collect(),
+            min: 0,
+            max: 0,
+        }
+    }
+
+    #[test]
+    fn rectangular_range() {
+        let mut data = setup();
+        data.add_rectangular();
+        assert_eq!(data.data.len(), 1_000_000);
+        assert_eq!(data.data.iter().min(), Some(&1));
+        assert_eq!(data.data.iter().max(), Some(&10));
+    }
+
+    #[test]
+    fn ushaped_range() {
+        let mut data = setup();
+        data.add_ushaped();
+        assert_eq!(data.data.len(), 1_000_000);
+        assert_eq!(data.data.iter().min(), Some(&1));
+        assert_eq!(data.data.iter().max(), Some(&10));
+    }
+}
