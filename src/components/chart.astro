@@ -1,11 +1,66 @@
-<div class="chart">Chart goes here</div>
+<div class="chart_container"><canvas id="chart"></canvas></div>
+
+<script>
+  import Chart from "chart.js/auto";
+
+  const ctx = document.getElementById("chart") as HTMLCanvasElement;
+  let chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: Array(10).fill(" "),
+      datasets: [
+        {
+          data: Array(10).fill(0),
+          backgroundColor: "blue",
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+        y: {
+          display: false,
+        },
+      },
+    },
+  });
+
+  document.addEventListener("update-data", (e) => {
+    const data = (e as CustomEvent).detail as Array<number>;
+    if (data.length === 0) {
+      let n = chart.data.datasets[0].data.length;
+      chart.data.datasets[0].data = Array(n).fill(0);
+      setTimeout(() => {
+        chart.data.labels = Array(10).fill(" ");
+        chart.data.datasets[0].data = Array(10).fill(0);
+        chart.update();
+      }, 1000);
+    } else {
+      chart.data.labels = Array(data.length).fill(" ");
+      chart.data.datasets[0].data = data;
+    }
+    chart.update();
+  });
+</script>
 
 <style>
-  .chart {
+  .chart_container {
     height: 100%;
     flex: 1;
     border: 1px solid black;
     border-radius: 0.5rem;
     padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

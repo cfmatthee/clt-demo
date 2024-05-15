@@ -11,7 +11,7 @@ const commands = {
 <div class="controls">
   {
     Object.entries(commands).map(([command, description], idx) => {
-      const color = idx == 0 ? "grey" : "green";
+      const color = idx == 0 ? "grey" : "blue";
       return (
         <command-button data-command={command}>
           <Button variant="solid" color={color}>
@@ -33,7 +33,8 @@ const commands = {
       button?.addEventListener("click", () => {
         const command = this.dataset.command;
         invoke("run_command", { command: command || "" }).then((data) => {
-          console.log("Promise returned", data);
+          let event = new CustomEvent("update-data", { detail: data });
+          document.dispatchEvent(event);
         });
       });
     }
