@@ -9,9 +9,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "astro:build": "astro check && astro build",
+    "build": "rm -rf ./src-tauri/target/release/build/dice-mc-* && cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   },
   "dependencies": {
     "@astrojs/check": "^0.6.0",

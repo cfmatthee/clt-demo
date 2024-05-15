@@ -1,9 +1,9 @@
 {
   "build": {
-    "beforeBuildCommand": "npm run build",
+    "beforeBuildCommand": "npm run astro:build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:4321",
-    "distDir": "dist"
+    "distDir": "../dist"
   },
   "package": {
     "productName": "dice-mc",
@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "org.nmisa.cfmatthee",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
