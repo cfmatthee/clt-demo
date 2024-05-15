@@ -8,7 +8,7 @@ use tauri::State;
 
 #[derive(Serialize)]
 struct Histogram {
-    data: Vec<u32>,
+    data: Vec<f32>,
     min: u32,
     max: u32,
 }
@@ -77,10 +77,18 @@ impl Data {
         if capacity == 1 {
             return Histogram::default();
         }
+
         let mut histogram: Vec<u32> = iter::repeat(0).take(capacity).collect();
         for val in self.data.iter() {
             histogram[(val - self.min) as usize] += 1;
         }
+
+        let factor: f32 = 100.0 / (self.data.len() as f32); // convert to a percentage
+        let histogram: Vec<f32> = histogram
+            .into_iter()
+            .map(|x| ((x as f32) * factor))
+            .collect();
+
         Histogram {
             data: histogram,
             min: self.min,
@@ -115,6 +123,7 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::Data;
+    use approx::assert_abs_diff_eq;
     use std::iter;
 
     fn setup() -> Data {
@@ -162,13 +171,16 @@ mod tests {
         data.add_rectangular();
         let histogram = data.create_histogram();
         assert_eq!(histogram.data.len(), 10);
+        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 100.0, epsilon = 0.0001);
 
         data.add_rectangular();
         let histogram = data.create_histogram();
         assert_eq!(histogram.data.len(), 19);
+        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 100.0, epsilon = 0.0001);
 
         data.add_rectangular();
         let histogram = data.create_histogram();
         assert_eq!(histogram.data.len(), 28);
+        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 100.0, epsilon = 0.0001);
     }
 }
