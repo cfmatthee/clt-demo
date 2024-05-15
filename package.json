@@ -5,12 +5,13 @@
     "email": "cfmatthee@gmail.com"
   },
   "type": "module",
-  "version": "0.0.1",
+  "version": "3.1.0",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "astro:dev": "astro dev",
     "astro:build": "astro check && astro build",
-    "build": "rm -rf ./src-tauri/target/release/build/clt-demo-* && cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+    "dev": "cargo tauri dev",
+    "build": "rm -rf ./src-tauri/target/release/build/clt-demo-* && cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
+    "test": "cd src-tauri && cargo test"
   },
   "dependencies": {
     "@astrojs/check": "^0.6.0",
