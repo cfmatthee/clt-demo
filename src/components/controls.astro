@@ -32,9 +32,8 @@ const commands = {
       const button = this.querySelector("button");
       button?.addEventListener("click", () => {
         const command = this.dataset.command;
-        console.log("invoking command", command);
-        invoke("run_command", { command: command || "" }).then((response) => {
-          console.log("Promise returned", response);
+        invoke("run_command", { command: command || "" }).then((data) => {
+          console.log("Promise returned", data);
         });
       });
     }

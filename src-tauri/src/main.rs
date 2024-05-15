@@ -55,23 +55,23 @@ impl Data {
         self.max += MAX;
     }
 
-    fn create_histogram(&self) {
+    fn create_histogram(&self) -> Vec<u32> {
         let capacity: usize = (self.max - self.min + 1) as usize;
         if capacity == 1 {
-            return ();
+            return Vec::new();
         }
         let mut histogram: Vec<u32> = iter::repeat(0).take(capacity).collect();
         for val in self.data.iter() {
             histogram[(val - self.min) as usize] += 1;
         }
-        println!("{:?}", histogram);
+        histogram
     }
 }
 
 struct AppState(Mutex<Data>);
 
 #[tauri::command]
-fn run_command(command: &str, state: State<AppState>) {
+fn run_command(command: &str, state: State<AppState>) -> Vec<u32> {
     let mut data = state.0.lock().unwrap();
     match command {
         "clear" => data.clear(),
@@ -80,7 +80,8 @@ fn run_command(command: &str, state: State<AppState>) {
         _ => (),
     };
 
-    data.create_histogram();
+    let histogram = data.create_histogram();
+    histogram
 }
 
 fn main() {
@@ -123,7 +124,7 @@ mod tests {
     }
 
     #[test]
-    fn clear() {
+    fn clear_data() {
         let mut data = setup();
         data.add_rectangular();
         data.clear();
@@ -131,5 +132,23 @@ mod tests {
         assert_eq!(data.data.iter().min(), Some(&0));
         assert_eq!(data.data.iter().max(), Some(&0));
         assert!(data.data.iter().all(|&x| x == 0));
+    }
+
+    #[test]
+    fn histogram() {
+        let mut data = setup();
+        assert!(data.create_histogram().is_empty());
+
+        data.add_rectangular();
+        let histogram = data.create_histogram();
+        assert_eq!(histogram.len(), 10);
+
+        data.add_rectangular();
+        let histogram = data.create_histogram();
+        assert_eq!(histogram.len(), 19);
+
+        data.add_rectangular();
+        let histogram = data.create_histogram();
+        assert_eq!(histogram.len(), 28);
     }
 }
