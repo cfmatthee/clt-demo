@@ -1,6 +1,6 @@
 # Central Limit Theorem Demonstration
 
-This application illustrates the Central Limit Theorem, specifically how it tends to a Guassian distribution when multiple probability distributions are added. As such, distributions that are far away from Gaussian are available to add to the existing distribution.
+This application illustrates the Central Limit Theorem, specifically how it tends to a Gaussian distribution when multiple probability distributions are added. As such, distributions that are far away from Gaussian are available to add to the existing distribution.
 
 This application uses [Tauri](https://tauri.app/) with the frontend (GUI) build with [Astro](https://astro.build/).
 

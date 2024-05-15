@@ -2,10 +2,27 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use rand::Rng;
+use serde::Serialize;
 use std::{iter, sync::Mutex};
 use tauri::State;
 
-#[derive(Debug)]
+#[derive(Serialize)]
+struct Histogram {
+    data: Vec<u32>,
+    min: u32,
+    max: u32,
+}
+
+impl Default for Histogram {
+    fn default() -> Self {
+        Self {
+            data: Vec::new(),
+            min: 0,
+            max: 0,
+        }
+    }
+}
+
 struct Data {
     data: Vec<u32>,
     min: u32,
@@ -55,23 +72,27 @@ impl Data {
         self.max += MAX;
     }
 
-    fn create_histogram(&self) -> Vec<u32> {
+    fn create_histogram(&self) -> Histogram {
         let capacity: usize = (self.max - self.min + 1) as usize;
         if capacity == 1 {
-            return Vec::new();
+            return Histogram::default();
         }
         let mut histogram: Vec<u32> = iter::repeat(0).take(capacity).collect();
         for val in self.data.iter() {
             histogram[(val - self.min) as usize] += 1;
         }
-        histogram
+        Histogram {
+            data: histogram,
+            min: self.min,
+            max: self.max,
+        }
     }
 }
 
 struct AppState(Mutex<Data>);
 
 #[tauri::command]
-fn run_command(command: &str, state: State<AppState>) -> Vec<u32> {
+fn run_command(command: &str, state: State<AppState>) -> Histogram {
     let mut data = state.0.lock().unwrap();
     match command {
         "clear" => data.clear(),
@@ -80,8 +101,7 @@ fn run_command(command: &str, state: State<AppState>) -> Vec<u32> {
         _ => (),
     };
 
-    let histogram = data.create_histogram();
-    histogram
+    data.create_histogram()
 }
 
 fn main() {
@@ -137,18 +157,18 @@ mod tests {
     #[test]
     fn histogram() {
         let mut data = setup();
-        assert!(data.create_histogram().is_empty());
+        assert!(data.create_histogram().data.is_empty());
 
         data.add_rectangular();
         let histogram = data.create_histogram();
-        assert_eq!(histogram.len(), 10);
+        assert_eq!(histogram.data.len(), 10);
 
         data.add_rectangular();
         let histogram = data.create_histogram();
-        assert_eq!(histogram.len(), 19);
+        assert_eq!(histogram.data.len(), 19);
 
         data.add_rectangular();
         let histogram = data.create_histogram();
-        assert_eq!(histogram.len(), 28);
+        assert_eq!(histogram.data.len(), 28);
     }
 }

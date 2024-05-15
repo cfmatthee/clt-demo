@@ -35,17 +35,26 @@
   });
 
   document.addEventListener("update-data", (e) => {
-    const data = (e as CustomEvent).detail as Array<number>;
-    if (data.length === 0) {
+    type Histogram = {
+      data: Array<number>;
+      min: number;
+      max: number;
+    };
+    const histogram = (e as CustomEvent).detail as Histogram;
+    if (histogram.data.length === 0) {
       let n = chart.data.datasets[0].data.length;
       chart.data.datasets[0].data = Array(n).fill(0);
       setTimeout(() => {
         chart.data.labels = Array(10).fill(" ");
         chart.data.datasets[0].data = Array(10).fill(0);
         chart.update();
-      }, 1000);
+      }, 800);
     } else {
-      chart.data.labels = Array(data.length).fill(" ");
+      const data = histogram.data;
+      chart.data.labels = Array.from(
+        { length: data.length },
+        (_, i) => i + histogram.min
+      );
       chart.data.datasets[0].data = data;
     }
     chart.update();
