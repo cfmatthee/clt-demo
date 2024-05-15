@@ -1,5 +1,5 @@
 {
-  "name": "dice-mc",
+  "name": "clt-demo",
   "author": {
     "name": "CF Matthee",
     "email": "cfmatthee@gmail.com"
@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "astro:build": "astro check && astro build",
-    "build": "rm -rf ./src-tauri/target/release/build/dice-mc-* && cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
+    "build": "rm -rf ./src-tauri/target/release/build/clt-demo-* && cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc"
   },
   "dependencies": {
     "@astrojs/check": "^0.6.0",

@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "dice-mc",
+    "productName": "clt-demo",
     "version": "3.0.0"
   },
   "tauri": {
@@ -14,9 +14,9 @@
       "all": false
     },
     "bundle": {
-      "active": true,
-      "category": "DeveloperTool",
-      "copyright": "",
+      "active": false,
+      "category": "Education",
+      "copyright": "2024 CF Matthee",
       "deb": {
         "depends": []
       },
@@ -29,7 +29,7 @@
         "icons/icon.ico"
       ],
       "identifier": "org.nmisa.cfmatthee",
-      "longDescription": "",
+      "longDescription": "A small application demonstrating the central limit theorem using a Monte Carlo simulation",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -38,8 +38,8 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "",
-      "targets": "all",
+      "shortDescription": "Central Limit Theorem Demonstration",
+      "targets": ["nsis"],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
