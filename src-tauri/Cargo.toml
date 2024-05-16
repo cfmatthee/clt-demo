@@ -1,5 +1,5 @@
 [package]
-name = "dice-mc"
+name = "clt-demo"
 version = "3.0.0"
 description = "Demonstrating the Central Limit Theorem using dice and a Monte Carlo simulation"
 authors = [
@@ -7,8 +7,8 @@ authors = [
   "CF Matthee <cmatthee@nmisa.org>",
 ]
 license = "Private"
-repository = "https://github.com/cfmatthee/dice-mc.git"
-default-run = "dice-mc"
+repository = "https://github.com/cfmatthee/clt-demo.git"
+default-run = "clt-demo"
 edition = "2021"
 rust-version = "1.60"
 

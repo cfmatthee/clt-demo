@@ -10,7 +10,8 @@
     "astro:dev": "astro dev",
     "astro:build": "astro check && astro build",
     "dev": "cargo tauri dev",
-    "build": "rm -rf ./src-tauri/target/release/build/clt-demo-* && cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
+    "prebuild": "find src-tauri -name \"*.js\" -type f -delete",
+    "build": "cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
     "test": "cd src-tauri && cargo test"
   },
   "dependencies": {

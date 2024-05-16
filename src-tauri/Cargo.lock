@@ -312,6 +312,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "clt-demo"
+version = "3.0.0"
+dependencies = [
+ "approx",
+ "rand 0.8.5",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+]
+
+[[package]]
 name = "cocoa"
 version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -558,18 +570,6 @@ dependencies = [
  "quote",
  "rustc_version",
  "syn 1.0.109",
-]
-
-[[package]]
-name = "dice-mc"
-version = "3.0.0"
-dependencies = [
- "approx",
- "rand 0.8.5",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
 ]
 
 [[package]]
