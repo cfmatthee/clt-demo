@@ -39,8 +39,12 @@
       data: Array<number>;
       min: number;
       max: number;
+      mean: number;
+      stdev: number;
+      guassian: Array<number>;
     };
     const histogram = (e as CustomEvent).detail as Histogram;
+    console.log(histogram);
     if (histogram.data.length === 0) {
       let n = chart.data.datasets[0].data.length;
       chart.data.datasets[0].data = Array(n).fill(0);

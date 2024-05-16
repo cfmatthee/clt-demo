@@ -3,15 +3,34 @@
 
 use rand::Rng;
 use serde::Serialize;
-use std::{iter, sync::Mutex};
-use tauri::State;
+use std::{
+    f32::consts::{E, PI},
+    iter,
+    sync::Mutex,
+};
+use tauri::{Manager, State};
+
+// -----------------------------------------------------------------------------------------------
 
 #[derive(Serialize)]
 struct Histogram {
     data: Vec<f32>,
     min: u32,
     max: u32,
+    mean: f32,
+    stdev: f32,
+    guassian: Vec<f32>,
 }
+
+struct Data {
+    data: Vec<u32>,
+    min: u32,
+    max: u32,
+}
+
+struct AppState(Mutex<Data>);
+
+// -----------------------------------------------------------------------------------------------
 
 impl Default for Histogram {
     fn default() -> Self {
@@ -19,14 +38,11 @@ impl Default for Histogram {
             data: Vec::new(),
             min: 0,
             max: 0,
+            mean: 0.,
+            stdev: 0.,
+            guassian: Vec::new(),
         }
     }
-}
-
-struct Data {
-    data: Vec<u32>,
-    min: u32,
-    max: u32,
 }
 
 impl Default for Data {
@@ -82,22 +98,40 @@ impl Data {
         for val in self.data.iter() {
             histogram[(val - self.min) as usize] += 1;
         }
-
-        let factor: f32 = 100.0 / (self.data.len() as f32); // convert to a percentage
+        let factor: f32 = 1.0 / (self.data.len() as f32);
         let histogram: Vec<f32> = histogram
             .into_iter()
             .map(|x| ((x as f32) * factor))
+            .collect();
+        let mean: f32 = histogram
+            .iter()
+            .enumerate()
+            .map(|(x, p)| ((x + self.min as usize) as f32) * p)
+            .sum();
+        let stdev: f32 = histogram
+            .iter()
+            .enumerate()
+            .map(|(x, p)| (((x + self.min as usize) as f32) - mean).powf(2.) * p)
+            .sum::<f32>()
+            .sqrt();
+        let factor: f32 = 1. / (stdev * (2. * PI).sqrt());
+        let guassian: Vec<f32> = (self.min..=self.max)
+            .into_iter()
+            .map(|x| factor * E.powf(-0.5 * (((x as f32) - mean) / stdev).powf(2.)))
             .collect();
 
         Histogram {
             data: histogram,
             min: self.min,
             max: self.max,
+            mean,
+            stdev,
+            guassian,
         }
     }
 }
 
-struct AppState(Mutex<Data>);
+// -----------------------------------------------------------------------------------------------
 
 #[tauri::command]
 fn run_command(command: &str, state: State<AppState>) -> Histogram {
@@ -112,13 +146,22 @@ fn run_command(command: &str, state: State<AppState>) -> Histogram {
     data.create_histogram()
 }
 
+// -----------------------------------------------------------------------------------------------
+
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            #[cfg(debug_assertions)]
+            app.get_window("main").unwrap().open_devtools();
+            Ok(())
+        })
         .manage(AppState(Mutex::new(Data::new())))
         .invoke_handler(tauri::generate_handler![run_command])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+// -----------------------------------------------------------------------------------------------
 
 #[cfg(test)]
 mod tests {
