@@ -214,16 +214,16 @@ mod tests {
         data.add_rectangular();
         let histogram = data.create_histogram();
         assert_eq!(histogram.data.len(), 10);
-        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 100.0, epsilon = 0.0001);
+        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 1.0, epsilon = 0.000001);
 
         data.add_rectangular();
         let histogram = data.create_histogram();
         assert_eq!(histogram.data.len(), 19);
-        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 100.0, epsilon = 0.0001);
+        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 1.0, epsilon = 0.000001);
 
         data.add_rectangular();
         let histogram = data.create_histogram();
         assert_eq!(histogram.data.len(), 28);
-        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 100.0, epsilon = 0.0001);
+        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 1.0, epsilon = 0.000001);
     }
 }

@@ -5,13 +5,22 @@
 
   const ctx = document.getElementById("chart") as HTMLCanvasElement;
   let chart = new Chart(ctx, {
-    type: "bar",
     data: {
       labels: Array(10).fill(" "),
       datasets: [
         {
+          type: "bar",
           data: Array(10).fill(0),
           backgroundColor: "blue",
+        },
+        {
+          type: "line",
+          data: Array(10).fill(0),
+          pointStyle: false,
+          borderColor: "red",
+          borderWidth: 0,
+          borderDash: [2, 4],
+          tension: 0.25,
         },
       ],
     },
@@ -44,13 +53,16 @@
       guassian: Array<number>;
     };
     const histogram = (e as CustomEvent).detail as Histogram;
-    console.log(histogram);
+    // console.log(histogram);
     if (histogram.data.length === 0) {
       let n = chart.data.datasets[0].data.length;
       chart.data.datasets[0].data = Array(n).fill(0);
+      chart.data.datasets[1].data = Array(n).fill(0);
       setTimeout(() => {
         chart.data.labels = Array(10).fill(" ");
         chart.data.datasets[0].data = Array(10).fill(0);
+        chart.data.datasets[1].data = Array(10).fill(0);
+        chart.data.datasets[1].borderWidth = 0;
         chart.update();
       }, 800);
     } else {
@@ -60,6 +72,8 @@
         (_, i) => i + histogram.min
       );
       chart.data.datasets[0].data = data;
+      chart.data.datasets[1].data = histogram.guassian;
+      chart.data.datasets[1].borderWidth = 2;
     }
     chart.update();
   });
