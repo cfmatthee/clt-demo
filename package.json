@@ -1,11 +1,11 @@
 {
   "name": "clt-demo",
-  "author": {
-    "name": "CF Matthee",
-    "email": "cfmatthee@gmail.com"
-  },
-  "type": "module",
   "version": "3.1.0",
+  "description": "Demonstrating the Central Limit Theorem using dice and a Monte Carlo simulation",
+  "author": "CF Matthee <cfmatthee@gmail.com>, CF Matthee <cmatthee@nmisa.org>",
+  "license": "MIT",
+  "repository": "github:cfmatthee/clt-demo.git",
+  "type": "module",
   "scripts": {
     "astro:dev": "astro dev",
     "astro:build": "astro check && astro build",
