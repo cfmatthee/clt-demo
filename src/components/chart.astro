@@ -67,13 +67,19 @@
       }, 800);
     } else {
       const data = histogram.data;
+      const guassian = histogram.guassian;
+      let r = data
+        .map((_, i) => (data[i] - guassian[i]) ** 2)
+        .reduce((acc, cur) => acc + cur, 0);
       chart.data.labels = Array.from(
         { length: data.length },
         (_, i) => i + histogram.min
       );
       chart.data.datasets[0].data = data;
-      chart.data.datasets[1].data = histogram.guassian;
-      chart.data.datasets[1].borderWidth = 2;
+      chart.data.datasets[1].data = guassian;
+      if (r < 0.001) {
+        chart.data.datasets[1].borderWidth = 2;
+      }
     }
     chart.update();
   });
