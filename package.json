@@ -9,9 +9,9 @@
   "scripts": {
     "astro:dev": "astro dev",
     "astro:build": "astro check && astro build",
-    "dev": "cargo tauri dev",
+    "dev": "tauri dev",
     "prebuild": "find src-tauri -name \"*.js\" -type f -delete",
-    "build": "cargo tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
+    "build": "tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
     "test": "cd src-tauri && cargo test"
   },
   "dependencies": {
@@ -20,5 +20,8 @@
     "astro": "^4.8.3",
     "chart.js": "^4.4.2",
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.14"
   }
 }
