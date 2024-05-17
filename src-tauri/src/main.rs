@@ -25,6 +25,7 @@ struct Histogram {
     guassian: Vec<f32>,
 }
 
+#[derive(Debug)]
 struct Data {
     data: Vec<u32>,
     min: u32,
@@ -83,8 +84,8 @@ impl Data {
         const MAX: u32 = 10;
         let mut rng = rand::thread_rng();
         for item in self.data.iter_mut() {
-            let x: f64 = rng.gen::<f64>();
-            let y: f64 = (-2.269 * x.powf(3.0) + 3.404 * x.powf(2.0) - 0.1456 * x + 0.006) * 10.0;
+            let x: f32 = rng.gen::<f32>();
+            let y: f32 = (PI * x - PI / 2.).sin() * 4.999999 + 5.;
             *item += y.ceil() as u32;
         }
         self.min += 1;

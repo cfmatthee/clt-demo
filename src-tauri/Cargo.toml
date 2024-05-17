@@ -1,6 +1,6 @@
 [package]
 name = "clt-demo"
-version = "3.1.0"
+version = "3.1.1"
 description = "Demonstrating the Central Limit Theorem using dice and a Monte Carlo simulation"
 authors = [
   "CF Matthee <cfmatthee@gmail.com>",
