@@ -120,7 +120,6 @@ impl Data {
             .sqrt();
         let factor: f32 = 1. / (stdev * (2. * PI).sqrt());
         let guassian: Vec<f32> = (self.min..=self.max)
-            .into_iter()
             .map(|x| factor * E.powf(-0.5 * (((x as f32) - mean) / stdev).powf(2.)))
             .collect();
 
