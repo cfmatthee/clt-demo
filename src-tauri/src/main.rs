@@ -10,9 +10,6 @@ use std::{
 };
 use tauri::State;
 
-#[cfg(debug_assertions)]
-use tauri::Manager;
-
 // -----------------------------------------------------------------------------------------------
 
 #[derive(Serialize)]
@@ -152,15 +149,7 @@ fn run_command(command: &str, state: State<AppState>) -> Histogram {
 // -----------------------------------------------------------------------------------------------
 
 fn main() {
-    let builder = tauri::Builder::default();
-
-    #[cfg(debug_assertions)]
-    let builder = builder.setup(|app| {
-        app.get_window("main").unwrap().open_devtools();
-        Ok(())
-    });
-
-    builder
+    tauri::Builder::default()
         .manage(AppState(Mutex::new(Data::new())))
         .invoke_handler(tauri::generate_handler![run_command])
         .run(tauri::generate_context!())

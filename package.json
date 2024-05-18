@@ -7,6 +7,7 @@
         "tauri": "tauri",
         "dev": "tauri dev",
         "build": "tauri build",
+        "preview": "src-tauri/target/release/clt-demo",
         "test": "cd src-tauri && cargo test"
         },
     "devDependencies": {

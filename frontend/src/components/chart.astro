@@ -6,16 +6,16 @@
   const ctx = document.getElementById("chart") as HTMLCanvasElement;
   let chart = new Chart(ctx, {
     data: {
-      labels: Array(10).fill(" "),
+      labels: Array(11).fill(" "),
       datasets: [
         {
           type: "bar",
-          data: Array(10).fill(0),
+          data: Array(11).fill(0),
           backgroundColor: "blue",
         },
         {
           type: "line",
-          data: Array(10).fill(0),
+          data: Array(11).fill(0),
           pointStyle: false,
           borderColor: "red",
           borderWidth: 0,
@@ -59,27 +59,44 @@
       chart.data.datasets[0].data = Array(n).fill(0);
       chart.data.datasets[1].data = Array(n).fill(0);
       setTimeout(() => {
-        chart.data.labels = Array(10).fill(" ");
-        chart.data.datasets[0].data = Array(10).fill(0);
-        chart.data.datasets[1].data = Array(10).fill(0);
+        chart.data.labels = Array(11).fill(" ");
+        chart.data.datasets[0].data = Array(11).fill(0);
+        chart.data.datasets[1].data = Array(11).fill(0);
         chart.data.datasets[1].borderWidth = 0;
         chart.update();
       }, 800);
     } else {
       const data = histogram.data;
       const guassian = histogram.guassian;
-      let r = data
-        .map((_, i) => (data[i] - guassian[i]) ** 2)
-        .reduce((acc, cur) => acc + cur, 0);
+      const animation = chart.options.animation as any; // hack since duration is not defined on animation type
+      if (chart.data.labels && chart.data.labels[0] !== " ") {
+        const shift = chart.data.labels[0] - histogram.min;
+        const fill = Array(shift).fill(" ");
+        chart.data.labels = fill.concat(chart.data.labels).concat(fill);
+        chart.data.datasets[0].data = fill
+          .concat(chart.data.datasets[0].data)
+          .concat(fill);
+        chart.data.datasets[1].data = fill
+          .concat(chart.data.datasets[1].data)
+          .concat(fill);
+        animation.duration = 0;
+        chart.update();
+      }
+
       chart.data.labels = Array.from(
         { length: data.length },
         (_, i) => i + histogram.min
       );
       chart.data.datasets[0].data = data;
       chart.data.datasets[1].data = guassian;
+
+      let r = data
+        .map((_, i) => (data[i] - guassian[i]) ** 2)
+        .reduce((acc, cur) => acc + cur, 0);
       if (r < 0.001) {
         chart.data.datasets[1].borderWidth = 2;
       }
+      animation.duration = 1000;
     }
     chart.update();
   });
