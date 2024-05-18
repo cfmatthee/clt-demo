@@ -1,11 +1,8 @@
 [package]
 name = "clt-demo"
-version = "3.1.2"
+version = "3.0.0"
 description = "Demonstrating the Central Limit Theorem using dice and a Monte Carlo simulation"
-authors = [
-    "CF Matthee <cfmatthee@gmail.com>",
-    "CF Matthee <cmatthee@nmisa.org>",
-]
+authors = ["CF Matthee <cfmatthee@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/cfmatthee/clt-demo.git"
 default-run = "clt-demo"

@@ -1,13 +1,13 @@
 {
   "build": {
-    "beforeBuildCommand": "npm run astro:build",
-    "beforeDevCommand": "npm run astro:dev",
+    "beforeBuildCommand": "cd frontend && npm run astro:build",
+    "beforeDevCommand": "cd frontend && npm run astro:dev",
     "devPath": "http://localhost:4321",
-    "distDir": "../dist"
+    "distDir": "../frontend/dist"
   },
   "package": {
     "productName": "clt-demo",
-    "version": "3.1.2"
+    "version": "../package.json"
   },
   "tauri": {
     "allowlist": {
@@ -28,7 +28,8 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "org.nmisa.cfmatthee",
+      "identifier": "dev.cfmatthee",
+      "publisher": "CF Matthee",
       "longDescription": "A small application demonstrating the central limit theorem using a Monte Carlo simulation",
       "macOS": {
         "entitlements": null,

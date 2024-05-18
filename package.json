@@ -1,28 +1,15 @@
 {
-  "name": "clt-demo",
-  "version": "3.1.2",
-  "description": "Demonstrating the Central Limit Theorem using dice and a Monte Carlo simulation",
-  "author": "CF Matthee <cfmatthee@gmail.com>, CF Matthee <cmatthee@nmisa.org>",
-  "license": "MIT",
-  "repository": "github:cfmatthee/clt-demo.git",
-  "type": "module",
-  "scripts": {
-    "astro:dev": "astro dev",
-    "astro:build": "astro check && astro build",
-    "dev": "tauri dev",
-    "tauri": "tauri",
-    "prebuild": "find src-tauri -name \"*.js\" -type f -delete",
-    "build": "tauri build",
-    "test": "cd src-tauri && cargo test"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.6.0",
-    "@tauri-apps/api": "^1.5.5",
-    "astro": "^4.8.3",
-    "chart.js": "^4.4.2",
-    "typescript": "^5.4.5"
-  },
-  "devDependencies": {
-    "@tauri-apps/cli": "^1.5.14"
-  }
+    "name": "clt-demo",
+    "version": "3.1.2",
+    "author": "CF Matthee",
+    "license": "MIT",
+    "scripts": {
+        "tauri": "tauri",
+        "dev": "tauri dev",
+        "build": "tauri build",
+        "test": "cd src-tauri && cargo test"
+        },
+    "devDependencies": {
+        "@tauri-apps/cli": "^1.5.14"
+    }
 }
