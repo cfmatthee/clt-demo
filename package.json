@@ -10,8 +10,9 @@
     "astro:dev": "astro dev",
     "astro:build": "astro check && astro build",
     "dev": "tauri dev",
+    "tauri": "tauri",
     "prebuild": "find src-tauri -name \"*.js\" -type f -delete",
-    "build": "tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
+    "build": "tauri build",
     "test": "cd src-tauri && cargo test"
   },
   "dependencies": {

@@ -14,7 +14,7 @@
       "all": false
     },
     "bundle": {
-      "active": false,
+      "active": true,
       "category": "Education",
       "copyright": "2024 CF Matthee",
       "deb": {
@@ -39,7 +39,7 @@
       },
       "resources": [],
       "shortDescription": "Central Limit Theorem Demonstration",
-      "targets": ["nsis"],
+      "targets": "all",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
