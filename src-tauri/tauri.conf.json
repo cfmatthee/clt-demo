@@ -1,9 +1,9 @@
 {
   "build": {
-    "beforeBuildCommand": "cd frontend && npm run astro:build",
-    "beforeDevCommand": "cd frontend && npm run astro:dev",
-    "devPath": "http://localhost:4321",
-    "distDir": "../frontend/dist"
+    "beforeBuildCommand": "cd ui && npm run build",
+    "beforeDevCommand": "cd ui && npm run dev",
+    "devPath": "http://localhost:3000",
+    "distDir": "../ui/.output/public"
   },
   "package": {
     "productName": "clt-demo",

@@ -1,14 +1,17 @@
 {
   "name": "clt-demo",
-  "version": "3.2.1",
+  "description": "A small application demonstrating the central limit theorem using a Monte Carlo simulation",
+  "version": "3.3.0",
   "author": "CF Matthee",
   "license": "MIT",
+  "repository": "github:cfmatthee/clt-demo",
+  "bugs": "https://github.com/cfmatthee/clt-demo/issues",
   "scripts": {
     "tauri": "tauri",
     "dev": "tauri dev",
     "build": "tauri build",
-    "preview": "src-tauri/target/release/clt-demo",
-    "test": "cd src-tauri && cargo test"
+    "start": "src-tauri/target/release/clt-demo",
+    "test": "cargo test --manifest-path src-tauri/Cargo.toml"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.14"
