@@ -7,6 +7,7 @@
   "repository": "github:cfmatthee/clt-demo",
   "bugs": "https://github.com/cfmatthee/clt-demo/issues",
   "scripts": {
+    "postinstall": "cd ui && npm install",
     "tauri": "tauri",
     "dev": "tauri dev",
     "build": "tauri build",
