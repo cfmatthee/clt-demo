@@ -1,7 +1,7 @@
 {
   "name": "clt-demo",
   "description": "A small application demonstrating the central limit theorem using a Monte Carlo simulation",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "author": "CF Matthee",
   "license": "MIT",
   "repository": "github:cfmatthee/clt-demo",

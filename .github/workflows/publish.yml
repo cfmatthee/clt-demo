@@ -49,7 +49,7 @@ jobs:
       - name: install frontend dependencies
         run: |
           npm install
-          cd frontend && npm install
+          cd ui && npm install
 
       - name: run tests
         run: npm t -- --release
