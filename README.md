@@ -9,20 +9,15 @@ Although this is a tool that I use in a course, this is also a test bed for
 different technologies. As such, the language and frameworks may change
 for no reason other that I wanted too.
 
-## Building
-
-This application uses [Tauri](https://tauri.app/) with the frontend (GUI) build
-with [SolidStart](https://docs.solidjs.com/solid-start/).
-
-First install the
-[prerequisites for Tauri](https://tauri.app/v1/guides/getting-started/prerequisites).
-After cloning the repository, run `npm install` in the root folder to install
-all the JavaScript dependencies.
-
-To run a development version, first install the Tauri CLI application (either
-the Rust or JavaScript version). With the Tauri CLI installed, run
-`npm run dev`. To build the target for the local platform, run `npm run build`.
-The resulting executable will be in the `src-tauri/target/release` folder. The
-release version can be previewed using `npm run start`.
+## Release versions
 
 GitHub actions are used to generate release versions.
+A release version can be downloaded from the [Releases](releases) page. The
+description will contain the technologies used in that release.
+
+## Building
+
+This application uses [Tauri](https://tauri.app/). To compile locally, install
+the [prerequisites for Tauri](https://tauri.app/start/prerequisites/),
+clone the repository, and install all the JavaScript dependencies in the `ui`
+folder.
