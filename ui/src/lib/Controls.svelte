@@ -15,7 +15,7 @@
   };
 </script>
 
-<div class="container">
+<section class="container">
   {#each Object.entries(commands) as command}
     <button
       id={command[0]}
@@ -25,10 +25,10 @@
       {command[1]}
     </button>
   {/each}
-</div>
+</section>
 
 <style>
-  .container {
+  section {
     display: flex;
     flex-direction: row;
     gap: 15px;

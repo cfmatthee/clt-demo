@@ -1,15 +1,8 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
   import Controls from "./lib/Controls.svelte";
-
-  type Data = {
-    data: number[];
-    guassian: number[];
-    min: number;
-    max: number;
-    mean: number;
-    stdev: number;
-  };
+  import Histogram from "./lib/Histogram.svelte";
+  import type { Data } from "./types";
 
   let data = $state<Data>({
     data: [],
@@ -25,14 +18,10 @@
       data = new_data;
     });
   };
-
-  $effect(() => {
-    $inspect(data);
-  });
 </script>
 
 <main>
-  <div class="histogram"></div>
+  <Histogram {data} />
   <Controls onclick={handleClick} />
 </main>
 
@@ -42,10 +31,6 @@
     flex-direction: column;
     gap: 5px;
     height: 100vh;
-  }
-
-  .histogram {
-    background-color: #ccc;
-    flex-grow: 1;
+    max-height: 100vh;
   }
 </style>
