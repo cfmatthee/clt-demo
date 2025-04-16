@@ -1,7 +1,7 @@
 {
   "name": "ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "3.4.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,12 +11,12 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@tauri-apps/api": "^2.4.0",
+    "@tauri-apps/api": "^2.5.0",
     "@tsconfig/svelte": "^5.0.4",
-    "chart.js": "^4.4.8",
-    "svelte": "^5.20.2",
-    "svelte-check": "^4.1.4",
-    "typescript": "~5.7.2",
-    "vite": "^6.2.0"
+    "chart.js": "^4.4.9",
+    "svelte": "^5.27.0",
+    "svelte-check": "^4.1.6",
+    "typescript": "~5.7.3",
+    "vite": "^6.2.6"
   }
 }
