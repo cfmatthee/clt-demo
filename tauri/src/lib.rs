@@ -1,9 +1,7 @@
 use std::sync::Mutex;
 
-use engine::{Data, Histogram};
+use lib::{Data, Histogram};
 use tauri::State;
-
-mod engine;
 
 struct AppState(Mutex<Data>);
 

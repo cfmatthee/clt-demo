@@ -18,9 +18,9 @@ pub struct Histogram {
 
 #[derive(Debug)]
 pub struct Data {
-    pub data: Vec<i32>,
-    pub min: i32,
-    pub max: i32,
+    data: Vec<i32>,
+    min: i32,
+    max: i32,
 }
 
 impl Default for Histogram {
@@ -39,7 +39,7 @@ impl Default for Histogram {
 impl Default for Data {
     fn default() -> Self {
         Self {
-            data: iter::repeat(0).take(1_000_000).collect(),
+            data: iter::repeat_n(0, 1_000_000).collect(),
             min: 0,
             max: 0,
         }
@@ -85,15 +85,12 @@ impl Data {
             return Histogram::default();
         }
 
-        let mut histogram: Vec<u32> = iter::repeat(0).take(capacity).collect();
+        let mut histogram: Vec<u32> = iter::repeat_n(0, capacity).collect();
         for val in self.data.iter() {
             histogram[(val - self.min) as usize] += 1;
         }
         let factor: f32 = 1.0 / (self.data.len() as f32);
-        let histogram: Vec<f32> = histogram
-            .into_iter()
-            .map(|x| ((x as f32) * factor))
-            .collect();
+        let histogram: Vec<f32> = histogram.into_iter().map(|x| (x as f32) * factor).collect();
         let mean: f32 = histogram
             .iter()
             .enumerate()
@@ -127,19 +124,10 @@ impl Data {
 mod tests {
     use super::Data;
     use approx::assert_abs_diff_eq;
-    use std::iter;
-
-    fn setup() -> Data {
-        Data {
-            data: iter::repeat(0).take(1_000_000).collect(),
-            min: 0,
-            max: 0,
-        }
-    }
 
     #[test]
     fn rectangular_range() {
-        let mut data = setup();
+        let mut data = Data::default();
         data.add_rectangular();
         assert_eq!(data.data.len(), 1_000_000);
         assert_eq!(data.data.iter().min(), Some(&-5));
@@ -148,7 +136,7 @@ mod tests {
 
     #[test]
     fn ushaped_range() {
-        let mut data = setup();
+        let mut data = Data::default();
         data.add_ushaped();
         assert_eq!(data.data.len(), 1_000_000);
         assert_eq!(data.data.iter().min(), Some(&-5));
@@ -157,7 +145,7 @@ mod tests {
 
     #[test]
     fn clear_data() {
-        let mut data = setup();
+        let mut data = Data::default();
         data.add_rectangular();
         data.clear();
         assert_eq!(data.data.len(), 1_000_000);
@@ -168,7 +156,7 @@ mod tests {
 
     #[test]
     fn histogram() {
-        let mut data = setup();
+        let mut data = Data::default();
         assert!(data.create_histogram().data.is_empty());
 
         data.add_rectangular();

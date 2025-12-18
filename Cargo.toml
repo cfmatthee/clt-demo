@@ -1,0 +1,9 @@
+[workspace.package]
+authors = ["CF Matthee <cmatthee@nmisa.org>"]
+description = "A Tauri App"
+license = "MIT"
+repository = "https://github.com/cfmatthee/clt-demo"
+
+[workspace]
+members = ["lib", "tauri"]
+resolver = "3"
