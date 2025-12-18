@@ -58,12 +58,12 @@ impl Data {
     }
 
     pub fn add_rectangular(&mut self) {
-        const SEMI_RANGE: i32 = 5;
+        const SEMI_RANGE: i32 = 6;
         let mut rng = rand::rng();
         for item in self.data.iter_mut() {
-            *item += rng.random_range(-SEMI_RANGE..=SEMI_RANGE);
+            *item += rng.random_range(1..=SEMI_RANGE);
         }
-        self.min -= SEMI_RANGE;
+        self.min += 1;
         self.max += SEMI_RANGE;
     }
 
@@ -73,10 +73,10 @@ impl Data {
         for item in self.data.iter_mut() {
             let x: f32 = rng.random::<f32>();
             let y: f32 = (PI * x - PI / 2.).sin() * (SEMI_RANGE as f32 + 0.5);
-            *item += y.clamp(-5.0, 5.0).round() as i32;
+            *item += y.clamp(-5.0, 5.0).round() as i32 + 5;
         }
-        self.min -= SEMI_RANGE;
-        self.max += SEMI_RANGE;
+        self.min += 0;
+        self.max += 2 * SEMI_RANGE;
     }
 
     pub fn create_histogram(&self) -> Histogram {
@@ -130,8 +130,8 @@ mod tests {
         let mut data = Data::default();
         data.add_rectangular();
         assert_eq!(data.data.len(), 1_000_000);
-        assert_eq!(data.data.iter().min(), Some(&-5));
-        assert_eq!(data.data.iter().max(), Some(&5));
+        assert_eq!(data.data.iter().min(), Some(&1));
+        assert_eq!(data.data.iter().max(), Some(&6));
     }
 
     #[test]
@@ -139,8 +139,8 @@ mod tests {
         let mut data = Data::default();
         data.add_ushaped();
         assert_eq!(data.data.len(), 1_000_000);
-        assert_eq!(data.data.iter().min(), Some(&-5));
-        assert_eq!(data.data.iter().max(), Some(&5));
+        assert_eq!(data.data.iter().min(), Some(&0));
+        assert_eq!(data.data.iter().max(), Some(&10));
     }
 
     #[test]
@@ -161,17 +161,17 @@ mod tests {
 
         data.add_rectangular();
         let histogram = data.create_histogram();
+        assert_eq!(histogram.data.len(), 6);
+        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 1.0, epsilon = 0.000001);
+
+        data.add_rectangular();
+        let histogram = data.create_histogram();
         assert_eq!(histogram.data.len(), 11);
         assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 1.0, epsilon = 0.000001);
 
         data.add_rectangular();
         let histogram = data.create_histogram();
-        assert_eq!(histogram.data.len(), 21);
-        assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 1.0, epsilon = 0.000001);
-
-        data.add_rectangular();
-        let histogram = data.create_histogram();
-        assert_eq!(histogram.data.len(), 31);
+        assert_eq!(histogram.data.len(), 16);
         assert_abs_diff_eq!(histogram.data.iter().sum::<f32>(), 1.0, epsilon = 0.000001);
     }
 }
