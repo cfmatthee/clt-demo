@@ -1,19 +1,25 @@
-[workspace.package]
+[package]
+name = "clt-demo"
+version = "3.5.0"
+edition = "2021"
 authors = ["CF Matthee <cmatthee@nmisa.org>"]
-description = "A Tauri App"
+description = "A small application demonstrating the central limit theorem using a Monte Carlo simulation"
 license = "MIT"
 repository = "https://github.com/cfmatthee/clt-demo"
 
+[dependencies]
+dioxus = { version = "0.7.1", features = ["desktop"] }
+
 [workspace]
-members = ["lib", "tauri"]
+members = [ "lib" ]
 resolver = "3"
 
 [profile.dev]
-incremental = true # Compile your binary in smaller steps.
+incremental = true
 
 [profile.release]
-codegen-units = 1 # Allows LLVM to perform better optimization.
-lto = true        # Enables link-time-optimizations.
-opt-level = "z"   # Prioritizes small binary size. Use `3` if you prefer speed.
-panic = "abort"   # Higher performance by disabling panic handlers.
-strip = true      # Ensures debug symbols are removed.
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
