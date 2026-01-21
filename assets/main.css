@@ -1,43 +1,45 @@
-/* App-wide styling */
-body {
-    background-color: #0f1116;
-    color: #ffffff;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    margin: 20px;
+:root {
+    --nmisa-green: #016836;
+    --nmisa-gold: #c48a10;
+
+    --background-color: #eee;
+    --border-color: #666;
+    --disabled-color: #999;
+    --primary-color: #016836;
+    --secondary-color: #c48a10;
+    --text-color: #1e1e1e;
+
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-base: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.375rem;
 }
 
-#hero {
-    margin: 0;
+main {
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 0.25lh;
+    height: 100vh;
+    max-height: 100vh;
 }
 
-#links {
-    width: 400px;
-    text-align: left;
-    font-size: x-large;
-    color: white;
-    display: flex;
-    flex-direction: column;
-}
+button {
+    border: 2px solid var(--primary-color);
+    border-radius: 0.5lh;
+    color: var(--text-color);
+    padding: 0.3lh 3ch;
 
-#links a {
-    color: white;
-    text-decoration: none;
-    margin-top: 20px;
-    margin: 10px 0px;
-    border: white 1px solid;
-    border-radius: 5px;
-    padding: 10px;
-}
+    &.filled {
+        background-color: var(--primary-color);
+        border-color: black;
+        color: var(--background-color);
+    }
 
-#links a:hover {
-    background-color: #1f1f1f;
-    cursor: pointer;
-}
-
-#header {
-    max-width: 1200px;
+    &:hover {
+        background-color: var(--secondary-color);
+        color: var(--background-color);
+    }
 }
