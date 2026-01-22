@@ -1,4 +1,6 @@
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::prelude::*;
+
+use crate::AppState;
 
 const PANEL_CSS: Asset = asset!("/assets/control_panel.css");
 
@@ -25,8 +27,9 @@ pub fn Controls() -> Element {
     }
 }
 
-fn handle_command(command: &str) {
-    tracing::debug!(command);
+fn handle_command(cmd: &str) {
+    let app_state = use_context::<AppState>();
+    app_state.command(cmd);
 }
 
 //----------------------------------------------------------------------------

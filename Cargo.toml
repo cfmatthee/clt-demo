@@ -9,9 +9,10 @@ repository = "https://github.com/cfmatthee/clt-demo"
 
 [dependencies]
 dioxus = { version = "0.7.1", features = ["desktop"] }
+lib = { path = "./lib" }
 
 [workspace]
-members = [ "lib" ]
+members = ["lib"]
 resolver = "3"
 
 [profile.dev]
