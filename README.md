@@ -11,4 +11,9 @@ for no reason other that I wanted too.
 
 ## Available versions
 
-Tags in this repository indicate commits used as released versions.
+Tags and branches in this repository indicate commits used as released versions. In some cases, the released assets will be available in the `Releases` section on this page.  Those releases were build with GitHub's actions workflow tools.
+
+### Latest Releases
+
+- 3.4: Rust and Tauri forms the main desktop framework with a Svelte frontend.
+- 3.5: (in progress) Purely Rust based using the Dioxus framework.
