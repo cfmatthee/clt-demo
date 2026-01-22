@@ -1,6 +1,6 @@
 use std::sync::{Arc, Mutex};
 
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::prelude::*;
 use lib::{Data, Histogram};
 
 mod chart;
@@ -30,7 +30,6 @@ impl AppState {
             "ushaped" => data.add_ushaped(),
             _ => panic!("illegal command received"),
         }
-        tracing::debug!("{} => {}", cmd, data);
 
         let histogram = data.create_histogram();
         self.histogram.set(histogram);
