@@ -1,7 +1,7 @@
 use std::sync::{Arc, Mutex};
 
 use dioxus::{logger::tracing, prelude::*};
-use lib::Data;
+use lib::{Data, Histogram};
 
 mod chart;
 mod controls;
@@ -14,6 +14,7 @@ use controls::Controls;
 #[derive(Clone)]
 pub struct AppState {
     data: Arc<Mutex<Data>>,
+    histogram: Signal<Histogram>,
 }
 
 impl AppState {
@@ -21,7 +22,7 @@ impl AppState {
         Default::default()
     }
 
-    pub fn command(&self, cmd: &str) {
+    pub fn command(&mut self, cmd: &str) {
         let mut data = self.data.lock().unwrap();
         match cmd {
             "clear" => data.clear(),
@@ -30,6 +31,9 @@ impl AppState {
             _ => panic!("illegal command received"),
         }
         tracing::debug!("{} => {}", cmd, data);
+
+        let histogram = data.create_histogram();
+        self.histogram.set(histogram);
     }
 }
 
@@ -37,6 +41,7 @@ impl Default for AppState {
     fn default() -> Self {
         Self {
             data: Arc::new(Mutex::new(Data::new())),
+            histogram: use_signal(Histogram::default),
         }
     }
 }
@@ -52,13 +57,17 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    use_context_provider(AppState::new);
+    let state = AppState::new();
+
+    let mut copy = state.clone();
+    let command = use_callback(move |cmd| copy.command(cmd));
+
     rsx! {
         document::Link { rel: "stylesheet", href: RESET_CSS }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
         main {
-            Chart {}
-            Controls {}
+            Chart { histogram: state.histogram }
+            Controls { handle_command: command }
         }
     }
 }

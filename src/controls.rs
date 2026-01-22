@@ -1,11 +1,9 @@
 use dioxus::prelude::*;
 
-use crate::AppState;
-
 const PANEL_CSS: Asset = asset!("/assets/control_panel.css");
 
 #[component]
-pub fn Controls() -> Element {
+pub fn Controls(handle_command: Callback<&'static str>) -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: PANEL_CSS }
         section {
@@ -25,11 +23,6 @@ pub fn Controls() -> Element {
             }
         }
     }
-}
-
-fn handle_command(cmd: &str) {
-    let app_state = use_context::<AppState>();
-    app_state.command(cmd);
 }
 
 //----------------------------------------------------------------------------

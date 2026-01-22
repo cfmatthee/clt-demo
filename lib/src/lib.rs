@@ -17,6 +17,20 @@ pub struct Histogram {
     pub guassian: Vec<f32>,
 }
 
+impl Display for Histogram {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "Histogram {{ data: <{} items>, min: {}, max: {}, mean: {}, stdev: {} }}",
+            self.data.len(),
+            self.min,
+            self.max,
+            self.mean,
+            self.stdev
+        )
+    }
+}
+
 #[derive(Debug)]
 pub struct Data {
     data: Vec<i32>,
