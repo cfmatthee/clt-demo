@@ -1,6 +1,9 @@
 use std::sync::{Arc, Mutex};
 
-use dioxus::prelude::*;
+use dioxus::{
+    desktop::{tao, LogicalPosition, LogicalSize},
+    prelude::*,
+};
 use lib::{Data, Histogram};
 
 mod chart;
@@ -50,10 +53,6 @@ impl Default for AppState {
 const RESET_CSS: Asset = asset!("/assets/reset.css");
 const MAIN_CSS: Asset = asset!("/assets/main.css");
 
-fn main() {
-    dioxus::launch(App);
-}
-
 #[component]
 fn App() -> Element {
     let state = AppState::new();
@@ -69,4 +68,17 @@ fn App() -> Element {
             Controls { handle_command: command }
         }
     }
+}
+
+fn main() {
+    let window = tao::window::WindowBuilder::new()
+        .with_resizable(true)
+        .with_inner_size(LogicalSize::new(800.0, 600.0))
+        .with_position(LogicalPosition::new(10.0, 50.0))
+        .with_title("Central Limit Theorem Demonstration")
+        .with_maximized(false);
+    let config = dioxus::desktop::Config::new()
+        .with_window(window)
+        .with_menu(None);
+    dioxus::LaunchBuilder::new().with_cfg(config).launch(App);
 }
