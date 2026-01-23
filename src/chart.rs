@@ -22,8 +22,9 @@ pub fn Chart(histogram: ReadSignal<Histogram>) -> Element {
         document::Link { rel: "stylesheet", href: CHART_CSS }
         section {
             class: "chart",
-            for value in bar_height.iter() {
+            for (idx, value) in bar_height.iter().enumerate() {
                 div {
+                    key: "{idx}",
                     class: "bar",
                     height: value.as_str(),
                 }
