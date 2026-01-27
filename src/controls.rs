@@ -1,11 +1,8 @@
 use dioxus::prelude::*;
 
-const PANEL_CSS: Asset = asset!("/assets/control_panel.css");
-
 #[component]
 pub fn Controls(handle_command: Callback<&'static str>) -> Element {
     rsx! {
-        document::Link { rel: "stylesheet", href: PANEL_CSS }
         section {
             class: "control-panel",
             Button {

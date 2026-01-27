@@ -15,18 +15,20 @@ pub struct Histogram {
     pub mean: f32,
     pub stdev: f32,
     pub guassian: Vec<f32>,
+    pub fit: f32,
 }
 
 impl Display for Histogram {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "Histogram {{ data: <{} items>, min: {}, max: {}, mean: {}, stdev: {} }}",
+            "Histogram {{ data: <{} items>, min: {}, max: {}, mean: {}, stdev: {}, fit: {} }}",
             self.data.len(),
             self.min,
             self.max,
             self.mean,
-            self.stdev
+            self.stdev,
+            self.fit,
         )
     }
 }
@@ -59,6 +61,7 @@ impl Default for Histogram {
             mean: 0.,
             stdev: 0.,
             guassian: Vec::new(),
+            fit: 0.,
         }
     }
 }
@@ -133,6 +136,11 @@ impl Data {
         let guassian: Vec<f32> = (self.min..=self.max)
             .map(|x| factor * E.powf(-0.5 * (((x as f32) - mean) / stdev).powf(2.)))
             .collect();
+        let gof: f32 = guassian
+            .iter()
+            .zip(histogram.iter())
+            .map(|(exp, obs)| (obs - exp).powi(2) / exp)
+            .sum();
 
         Histogram {
             data: histogram,
@@ -141,6 +149,7 @@ impl Data {
             mean,
             stdev,
             guassian,
+            fit: gof,
         }
     }
 }
