@@ -1,9 +1,18 @@
 [application]
+name = "clt-demo"
+
+[bundle]
+identifier = "com.github.cfmatthee.clt-demo"
+publisher = "CF Matthee"
+copyright = "CF Matthee"
+short_description = "A small application demonstrating the central limit theorem using a Monte Carlo simulation"
+long_description = "A small application demonstrating the central limit theorem using a Monte Carlo simulation"
+icon = ["icons/dioxus.png",]  # this gets ignored on windows - icons/icon.ico will be used
 
 [web.app]
 
 # HTML title tag content
-title = "clt-demo"
+title = "Central Limit Theorem Demonstration"
 
 # include `assets` in web platform
 [web.resource]

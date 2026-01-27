@@ -2,7 +2,7 @@
 name = "clt-demo"
 version = "3.5.0"
 edition = "2021"
-authors = ["CF Matthee <cmatthee@nmisa.org>"]
+authors = ["CF Matthee"]
 description = "A small application demonstrating the central limit theorem using a Monte Carlo simulation"
 license = "MIT"
 repository = "https://github.com/cfmatthee/clt-demo"

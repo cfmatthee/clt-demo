@@ -74,15 +74,3 @@ pub fn Chart(histogram: ReadSignal<Histogram>) -> Element {
         }
     }
 }
-
-// for (idx, window) in guassian.windows(2).enumerate() {
-//     line {
-//         x1: ((idx as f32) + 0.5) * bar_width,
-//         x2: ((idx as f32) + 1.5) * bar_width,
-//         y1: HEIGHT - window[0],
-//         y2: HEIGHT - window[1],
-//         stroke: "red",
-//         stroke_width: "2",
-//         stroke_dasharray: "10,10",
-//     }
-// }
