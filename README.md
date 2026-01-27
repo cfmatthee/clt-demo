@@ -16,4 +16,4 @@ Tags and branches in this repository indicate commits used as released versions.
 ### Latest Releases
 
 - 3.4: Rust and Tauri forms the main desktop framework with a Svelte frontend.
-- 3.5: (in progress) Purely Rust based using the Dioxus framework.
+- 3.5: Purely Rust based using the Dioxus framework.
