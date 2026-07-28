@@ -1,11 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ControlButtonGroup from "./components/ControlButtonGroup.vue";
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div style="flex-grow: 1"></div>
+  <ControlButtonGroup />
 </template>
 
-<style scoped></style>
+<style>
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100vh;
+}
+</style>
