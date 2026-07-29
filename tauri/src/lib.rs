@@ -29,7 +29,6 @@ pub fn run() {
 
 #[tauri::command]
 fn command(state: State<'_, AppData>, cmd: &str) -> Result<Histogram, String> {
-    log::info!("Command: {}", cmd);
     let mut data = state.lock().unwrap();
     match cmd {
         "clear" => data.clear(),

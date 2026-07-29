@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import type { Histogram } from "@/types";
 import { invoke } from "@tauri-apps/api/core";
 
+const emit = defineEmits<{
+  updated: [histogram: Histogram];
+}>();
+
 async function handleCommmand(cmd: String) {
-  const result = await invoke("command", { cmd: cmd });
-  console.log(cmd, result);
+  const result = await invoke<Histogram>("command", { cmd: cmd });
+  emit("updated", result);
 }
 </script>
 
