@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2.0.0-rc",
   "productName": "clt-demo",
-  "version": "0.1.0",
-  "identifier": "org.nmisa.cltdemo",
+  "version": "3.6.0",
+  "identifier": "dev.cfmatthee.cltdemo",
   "build": {
     "frontendDist": "../app/dist",
     "devUrl": "http://localhost:5173",
@@ -25,7 +25,7 @@
     }
   },
   "bundle": {
-    "active": false,
+    "active": true,
     "targets": "all",
     "icon": [
       "icons/32x32.png",
