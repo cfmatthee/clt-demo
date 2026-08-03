@@ -1,6 +1,6 @@
 [package]
 name = "clt-demo"
-version = "3.6.0"
+version = "3.6.1"
 description = "A small application demonstrating the central limit theorem using a Monte Carlo simulation"
 authors = ["CF Matthee"]
 license = "MIT"
